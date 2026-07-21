@@ -5,10 +5,11 @@ app = Flask(__name__)
 # ==============================
 # SETTINGS
 # ==============================
-LOW_RATE = 0.2703
-HIGH_RATE = 0.3703
-OFF_PEAK_MULTIPLIER = 0.8
-PEAK_MULTIPLIER = 1.2
+# Rates in RM/kWh (converted from sen/kWh), tiered by total monthly usage
+PEAK_RATE_LOW = 0.2852       # 28.52 sen/kWh, usage <= 1500 kWh/month
+OFF_PEAK_RATE_LOW = 0.2443   # 24.43 sen/kWh, usage <= 1500 kWh/month
+PEAK_RATE_HIGH = 0.3852      # 38.52 sen/kWh, usage > 1500 kWh/month
+OFF_PEAK_RATE_HIGH = 0.3443  # 34.43 sen/kWh, usage > 1500 kWh/month
 AVG_POWER = 1.5
 
 
@@ -20,10 +21,13 @@ def calculate_bill(off, peak, days):
     peak_kwh = peak * AVG_POWER * days
     total_kwh = off_kwh + peak_kwh
 
-    rate = LOW_RATE if total_kwh <= 1500 else HIGH_RATE
+    if total_kwh <= 1500:
+        peak_rate, off_peak_rate = PEAK_RATE_LOW, OFF_PEAK_RATE_LOW
+    else:
+        peak_rate, off_peak_rate = PEAK_RATE_HIGH, OFF_PEAK_RATE_HIGH
 
-    off_cost = off_kwh * rate * OFF_PEAK_MULTIPLIER
-    peak_cost = peak_kwh * rate * PEAK_MULTIPLIER
+    off_cost = off_kwh * off_peak_rate
+    peak_cost = peak_kwh * peak_rate
 
     total_cost = off_cost + peak_cost
 
@@ -57,6 +61,9 @@ def predict():
 
         if off < 0 or peak < 0:
             return render_template('index.html', error="Hours cannot be negative")
+
+        if peak > 8:
+            return render_template('index.html', error="Peak hours cannot exceed 8 per day (Peak window is 2:00 PM–10:00 PM)")
 
         if off + peak > 24:
             return render_template('index.html', error="Total hours cannot exceed 24")

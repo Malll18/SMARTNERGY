@@ -178,8 +178,8 @@
                 <input type="number" id="off_peak" name="off_peak" placeholder="e.g. 8" step="0.1" min="0" max="24" required>
             </div>
             <div class="form-group">
-                <label for="peak">Peak Hours / Day</label>
-                <input type="number" id="peak" name="peak" placeholder="e.g. 4" step="0.1" min="0" max="24" required>
+                <label for="peak">Peak Hours / Day (max 8, 2 PM–10 PM)</label>
+                <input type="number" id="peak" name="peak" placeholder="e.g. 4" step="0.1" min="0" max="8" required>
             </div>
             <div class="form-group">
                 <label for="days">Days Used This Month</label>
@@ -441,18 +441,18 @@
             <h3>Experiment 2 — Time-of-Use Cost Comparison</h3>
             <div class="kpi-row kpi-3">
                 <div class="kpi kpi-red">
-                    <div class="kpi-label">Normal Cost</div>
-                    <div class="kpi-value">RM 0.334</div>
-                    <div class="kpi-sub">Avg blended rate/kWh</div>
+                    <div class="kpi-label">Peak Rate</div>
+                    <div class="kpi-value">RM 0.2852</div>
+                    <div class="kpi-sub">Peak rate/kWh (2PM–10PM)</div>
                 </div>
                 <div class="kpi kpi-green">
-                    <div class="kpi-label">Optimized Rate</div>
-                    <div class="kpi-value">RM 0.218</div>
+                    <div class="kpi-label">Off-Peak Rate</div>
+                    <div class="kpi-value">RM 0.2443</div>
                     <div class="kpi-sub">Off-peak rate/kWh</div>
                 </div>
                 <div class="kpi">
                     <div class="kpi-label">Potential Saving</div>
-                    <div class="kpi-value">~34.7%</div>
+                    <div class="kpi-value">~14.3%</div>
                     <div class="kpi-sub">By shifting to off-peak</div>
                 </div>
             </div>
@@ -467,24 +467,24 @@
                 </div>
             </div>
             <table class="exp-table">
-                <thead><tr><th>ToU Zone</th><th>Rate (RM/kWh)</th><th>Normal Cost</th><th>Optimized</th><th>Saving %</th></tr></thead>
+                <thead><tr><th>ToU Zone</th><th>Rate ≤1500 kWh</th><th>Rate &gt;1500 kWh</th><th>Hours</th><th>Saving vs Peak</th></tr></thead>
                 <tbody>
                     <tr>
                         <td><span class="badge badge-low">Off-Peak</span></td>
-                        <td class="mono">0.218</td><td class="mono">—</td><td class="mono">—</td><td class="mono">0%</td>
-                    </tr>
-                    <tr>
-                        <td><span class="badge badge-medium">Mid-Peak</span></td>
-                        <td class="mono">0.334</td><td class="mono">Higher</td><td class="mono">Lower</td><td class="mono">34.7%</td>
+                        <td class="mono">0.2443</td><td class="mono">0.3443</td>
+                        <td class="mono">10PM–2PM (Mon–Fri) + all day Sat/Sun/holidays</td>
+                        <td class="mono highlight-green">14.3%</td>
                     </tr>
                     <tr>
                         <td><span class="badge badge-high">Peak</span></td>
-                        <td class="mono">0.509</td><td class="mono">Highest</td><td class="mono">Lowest</td><td class="mono highlight-green">57.2%</td>
+                        <td class="mono">0.2852</td><td class="mono">0.3852</td>
+                        <td class="mono">2PM–10PM (Mon–Fri)</td>
+                        <td class="mono">—</td>
                     </tr>
                 </tbody>
             </table>
             <div class="recommendation" style="margin-top:16px">
-                💡 Shifting <strong>peak-hour usage to off-peak</strong> (22:00–05:59) can reduce electricity cost by up to <strong>57%</strong> for that portion of consumption.
+                💡 Shifting <strong>peak-hour usage (2:00 PM–10:00 PM, Mon–Fri) to off-peak</strong> can reduce electricity cost by up to <strong>14%</strong> for that portion of consumption.
             </div>
         </div>
     </div>
@@ -564,7 +564,7 @@
             <div class="kpi-row kpi-3">
                 <div class="kpi kpi-green">
                     <div class="kpi-label">Avg Saving</div>
-                    <div class="kpi-value">~34%</div>
+                    <div class="kpi-value">~7%</div>
                     <div class="kpi-sub">Across all recommendations</div>
                 </div>
                 <div class="kpi">
@@ -574,7 +574,7 @@
                 </div>
                 <div class="kpi kpi-red">
                     <div class="kpi-label">Peak Saving</div>
-                    <div class="kpi-value">57%</div>
+                    <div class="kpi-value">14%</div>
                     <div class="kpi-sub">Shift to off-peak</div>
                 </div>
             </div>
@@ -592,27 +592,20 @@
             <div class="rec-row">
                 <div>
                     <span class="rec-tag rec-peak">🔴 Shift to Off-Peak</span>
-                    <div style="font-size:0.75rem;color:var(--text-secondary);margin-top:4px">Peak hours (14:00–21:59) — reduce 30% + move to off-peak rate</div>
+                    <div style="font-size:0.75rem;color:var(--text-secondary);margin-top:4px">Peak hours (2:00 PM–10:00 PM, Mon–Fri) — move usage to off-peak rate</div>
                 </div>
-                <span class="rec-saving">~57% saving</span>
-            </div>
-            <div class="rec-row">
-                <div>
-                    <span class="rec-tag rec-mid">🟠 Reduce or Delay</span>
-                    <div style="font-size:0.75rem;color:var(--text-secondary);margin-top:4px">Mid-peak hours (06:00–13:59) — reduce usage by 15%</div>
-                </div>
-                <span class="rec-saving">~15% saving</span>
+                <span class="rec-saving">~14% saving</span>
             </div>
             <div class="rec-row">
                 <div>
                     <span class="rec-tag rec-offpeak">🟢 No Change</span>
-                    <div style="font-size:0.75rem;color:var(--text-secondary);margin-top:4px">Off-peak hours (22:00–05:59) — already optimal</div>
+                    <div style="font-size:0.75rem;color:var(--text-secondary);margin-top:4px">Off-peak hours (10:00 PM–2:00 PM Mon–Fri, all day Sat/Sun/holidays) — already optimal</div>
                 </div>
                 <span class="rec-saving">Optimal ✅</span>
             </div>
             <div class="recommendation" style="margin-top:16px">
                 💡 Recommendations achieve an <strong>effectiveness score of 0.82</strong>.
-                The highest-impact action is shifting peak appliance use (washing machine, dryer, dishwasher) to after 22:00.
+                The highest-impact action is shifting peak appliance use (washing machine, dryer, dishwasher) to after 10:00 PM.
             </div>
         </div>
     </div>
@@ -718,10 +711,10 @@ new Chart(document.getElementById('chartRMSE'), {
 new Chart(document.getElementById('chartTouZone'), {
     type: 'bar',
     data: {
-        labels: ['Off-Peak', 'Mid-Peak', 'Peak'],
+        labels: ['Off-Peak', 'Peak'],
         datasets: [
-            { label: 'Normal',    data: [1, 1.53, 2.33], backgroundColor: RED,   borderRadius: 6 },
-            { label: 'Optimized', data: [1, 1,    1],    backgroundColor: GREEN, borderRadius: 6 }
+            { label: 'Normal',    data: [1, 1.17], backgroundColor: RED,   borderRadius: 6 },
+            { label: 'Optimized', data: [1, 1],    backgroundColor: GREEN, borderRadius: 6 }
         ]
     },
     options: {
@@ -740,7 +733,7 @@ new Chart(document.getElementById('chartTouPie'), {
     type: 'doughnut',
     data: {
         labels: ['Optimized Cost', 'Potential Saving'],
-        datasets: [{ data: [65.3, 34.7], backgroundColor: [CYAN, GREEN],
+        datasets: [{ data: [85.7, 14.3], backgroundColor: [CYAN, GREEN],
             borderColor: ['rgba(0,200,255,0.2)', 'rgba(0,255,179,0.2)'], borderWidth: 2, hoverOffset: 8 }]
     },
     options: {
@@ -775,10 +768,10 @@ new Chart(document.getElementById('chartProfiles'), {
 new Chart(document.getElementById('chartRecBar'), {
     type: 'bar',
     data: {
-        labels: ['Shift to\nOff-Peak', 'Reduce\nor Delay', 'No Change'],
+        labels: ['Shift to\nOff-Peak', 'No Change'],
         datasets: [
-            { label: 'Before', data: [100, 100, 100], backgroundColor: RED,   borderRadius: 6 },
-            { label: 'After',  data: [43,  85,  100], backgroundColor: GREEN, borderRadius: 6 }
+            { label: 'Before', data: [100, 100], backgroundColor: RED,   borderRadius: 6 },
+            { label: 'After',  data: [86,  100],  backgroundColor: GREEN, borderRadius: 6 }
         ]
     },
     options: {
@@ -796,16 +789,16 @@ new Chart(document.getElementById('chartRecBar'), {
 new Chart(document.getElementById('chartRecPct'), {
     type: 'bar',
     data: {
-        labels: ['Shift to Off-Peak', 'Reduce or Delay', 'No Change'],
-        datasets: [{ label: 'Saving %', data: [57, 15, 0],
-            backgroundColor: [GREEN, ORANGE, MUTED], borderRadius: 6, borderSkipped: false }]
+        labels: ['Shift to Off-Peak', 'No Change'],
+        datasets: [{ label: 'Saving %', data: [14, 0],
+            backgroundColor: [GREEN, MUTED], borderRadius: 6, borderSkipped: false }]
     },
     options: {
         responsive: true, maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
             x: { grid: gridOpts, ticks: { color: '#8892aa', font: { size: 10 } } },
-            y: { grid: gridOpts, ticks: tickOpts, min: 0, max: 70,
+            y: { grid: gridOpts, ticks: tickOpts, min: 0, max: 20,
                  title: { display: true, text: 'Saving %', color: '#8892aa' } }
         }
     }
