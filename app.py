@@ -10,6 +10,7 @@ HIGH_RATE = 0.3703
 OFF_PEAK_MULTIPLIER = 0.8
 PEAK_MULTIPLIER = 1.2
 AVG_POWER = 1.5
+ADOPTION_RATE = 0.5  # realistic share of the recommended shift users actually adopt in month 1
 
 
 # ==============================
@@ -66,12 +67,15 @@ def predict():
 
         # Current
         kwh, monthly = calculate_bill(off, peak, days)
-        next_month = monthly * 1.05
 
-        # Optimized
+        # Optimized (best case if recommendations are fully followed)
         new_off, new_peak = optimize_usage(off, peak)
         _, optimized = calculate_bill(new_off, new_peak, days)
         savings = monthly - optimized
+
+        # Next month is a realistic projection: users rarely adopt a
+        # recommendation 100% right away, so assume partial adoption.
+        next_month = monthly - savings * ADOPTION_RATE
 
         # Usage level
         if monthly > 300:
