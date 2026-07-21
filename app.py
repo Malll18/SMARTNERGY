@@ -40,7 +40,7 @@ def calculate_bill(off, peak, days):
 # OPTIMIZATION
 # ==============================
 def optimize_usage(off, peak):
-    shift = peak * 0.3
+    shift = peak * 0.7
     return off + shift, peak - shift
 
 
@@ -80,10 +80,10 @@ def predict():
         _, optimized = calculate_bill(new_off, new_peak, days)
         savings = monthly - optimized
 
-        # Usage level
-        if monthly > 300:
+        # Usage level (based on kWh, not RM cost, so it doesn't shift with tariff tier)
+        if kwh > 800:
             usage_level = "High ⚠️"
-        elif monthly > 150:
+        elif kwh > 400:
             usage_level = "Medium"
         else:
             usage_level = "Low ✅"
